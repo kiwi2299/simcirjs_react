@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<circuits>
+  <circuit id="cb0a7fe2-6a5f-4deb-9e7d-0d7f746a76ac" name="primer circuito" username="osquitar">
+    <devices>
+      <device>
+        <type>DC</type>
+        <id>dev0</id>
+        <x>120</x>
+        <y>128</y>
+        <label>DC</label>
+      </device>
+      <device>
+        <type>LED</type>
+        <id>dev1</id>
+        <x>216</x>
+        <y>128</y>
+        <label>LED</label>
+      </device>
+    </devices>
+    <connectors>
+      <connector>
+        <from>dev1.in0</from>
+        <to>dev0.out0</to>
+      </connector>
+    </connectors>
+  </circuit>
+  <circuit id="0c7f878b-6d77-4885-9557-2dfa49464de7" username="osquitar" name="basico 1">
+    <devices>
+      <device>
+        <id>dev0</id>
+        <type>DC</type>
+        <x>104</x>
+        <y>136</y>
+        <label>DC</label>
+      </device>
+      <device>
+        <id>dev1</id>
+        <type>PushOff</type>
+        <x>200</x>
+        <y>56</y>
+        <label>PushOff</label>
+      </device>
+      <device>
+        <id>dev2</id>
+        <type>LED</type>
+        <x>280</x>
+        <y>160</y>
+        <label>LED</label>
+      </device>
+      <device>
+        <id>dev3</id>
+        <type>LED</type>
+        <x>280</x>
+        <y>104</y>
+        <label>LED</label>
+      </device>
+      <device>
+        <id>dev4</id>
+        <type>PushOn</type>
+        <x>200</x>
+        <y>208</y>
+        <label>PushOn</label>
+      </device>
+    </devices>
+    <connectors>
+      <connector>
+        <from>dev1.in0</from>
+        <to>dev0.out0cf1=dev2.in0</to>
+      </connector>
+      <connector>
+        <from />
+        <to>dev4.out0cf2=dev3.in0</to>
+      </connector>
+      <connector>
+        <from />
+        <to>dev1.out0cf3=dev4.in0</to>
+      </connector>
+      <connector>
+        <from />
+        <to>dev0.out0</to>
+      </connector>
+    </connectors>
+  </circuit>
+</circuits>
