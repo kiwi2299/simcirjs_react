@@ -1,0 +1,28 @@
+#login-box {
+    width: 50%;
+    margin: auto;
+    margin-top: 40px;
+}
+
+#form-sp {
+    padding: 0px !important;
+    margin-top: 10px;
+}
+
+.display-4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.simcir {
+    margin-bottom: 20px;
+}
+
+.p-action {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+#circuit-view {
+    margin-top: 15px;
+}
