@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" >
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <script type="text/javascript" src="https://kazuhikoarase.github.io/simcirjs/simcir.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://kazuhikoarase.github.io/simcirjs/simcir.css" />
+    <script type="text/javascript" src="https://kazuhikoarase.github.io/simcirjs/simcir-basicset.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://kazuhikoarase.github.io/simcirjs/simcir-basicset.css" />
+    <script type="text/javascript" src="https://kazuhikoarase.github.io/simcirjs/simcir-library.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title></title>
+    <title>Ejercicios</title>
+    <script type="text/javascript">
+        
+        var circuit = {
+                name: String,
+                features: {
+                    devices: [],
+                    connectors: []
+                },
+            };
+        
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+            if(results===null){
+                return "";
+            }else{
+                return decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+        }
+
+        
+        function fetchcomps(callback){
+            return fetch('http://localhost:2272/SimcirJS/GetCircuit?id='+getParameterByName("id"))
+                .then((response) => { 
+                return response.json().then((data) => {
+                    console.log(data);
+                    return data;
+                }).catch((err) => {
+                    console.log(err);
+                }) 
+            });
+        }
+        
+        function componentDidMount() {
+            //const user = JSON.parse(localStorage.getItem('session'));
+           
+           
+                 let jsondata;
+            
+                                      
+                 
+    
+                fetchcomps().then((data) => {
+                    jsondata = data;
+                    								
+                    var cadena = "{\"width\":600,"
+                    cadena+="\"height\":400, \"showToolbox\":false,"
+                    console.log(data);
+                    circuit.name = jsondata.name,
+                    //circuit.features = resp.features,
+                    
+                    //cadena+=" \"connectors\":["+JSON.parse(resp.features.connectors)+"] }"
+                    circuit.features.devices = getdevices(jsondata.features.devices)
+                    
+                    circuit.features.connectors = getconnectors(jsondata.features.connectors)
+                    /*console.log(circuit.name);   
+                    console.log(circuit.features);  */  
+                    cadena+=" \"devices\":["+circuit.features.devices+"] ,"
+                    cadena+=" \"connectors\":["+circuit.features.connectors+"] }";
+                    console.log(cadena);
+                    document.getElementById('ayuda').innerHTML = cadena;    
+            });   
+        }
+
+    function getdevices(devices) {
+        // let devices = resp.features.devices;    
+        // let devices = this.state.circuit.features.devices;
+        let result = '', mto = false;
+        for(let i in devices) {
+            if(mto) result += ',';
+            result += '{"type":"'+devices[i].type+'","id":"'+devices[i].id+'","x":'+devices[i].x+',"y":'+devices[i].y+',"label":"'+devices[i].label+'"}';
+            mto = true;
+        }
+        console.log(result);
+        return result;
+    }
+
+    function getconnectors(connectors) {
+        // let connectors = resp.features.connectors;
+        // let connectors = this.state.circuit.features.connectors;
+        let result = '', mto = false;
+        for(let i in connectors) {
+            if(mto) result += ',';
+            result += '{"from":"'+connectors[i].from+'","to":"'+connectors[i].to+'"}';
+            mto = true;
+        }
+        //console.log(result);
+        return result;
+    }
+        /*{ "width":600, 
+        "height":400, 
+        "showToolbox":false, 
+        "devices":[
+            {"type":"DC","id":"dev0","x":120,"y":128,"label":"DC"},
+            {"type":"LED","id":"dev1","x":216,"y":128,"label":"LED"}
+            ], 
+        "connectors":[
+            {"from":"dev1.in0","to":"dev0.out0"}
+        ] }*/
+/*{
+											  "width":600,
+											  "height":400,
+											  "showToolbox":true,
+											  "toolbox":[
+												
+											  ],
+											  "devices":[
+												{"type":"In","id":"dev0","x":120,"y":72,"label":"In"},
+                                                {"type":"Out","id":"dev1","x":216,"y":112,"label":"Out"},
+                                                {"type":"DC","id":"dev0","x":120,"y":128,"label":"DC"},
+                                                {"type":"LED","id":"dev1","x":216,"y":128,"label":"LED"}
+											  ],
+											  "connectors":[
+											  	{"from":"dev1.in0","to":"dev0.out0"}
+											  ]
+										}*/
+        
+        
+    </script>
+</head>
+<body>
+		<div>
+				<div id="workspace-header"></div>
+				
+                <div class='container'>
+                    <div class='display-4'> 
+                        <script type="text/javascript">
+                            document.write(getParameterByName("name"));
+                        </script>
+                    </div>
+                    <div class='row justify-content-center'>
+                        <div class='col-lg-8 col-md-12'>
+                            
+								<div id="ayuda" class="simcir">
+                                        <script>componentDidMount()</script>
+                                </div>
+                                
+                        </div>
+                        
+                    </div>
+                </div>
+			</div>
+			
+</body>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" >
+    <title>Welcome</title>
+    
+    <script type="text/javascript">
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        if(results===null){
+            return "";
+        }else{
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="menu-header"></div>
+    <div id="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <p>Bienvenido: 
+                <script type="text/javascript">
+                    var user = getParameterByName('username');
+                     document.write(user);    
+                </script>
+            </div>
+            <div id="col-lg-4"></div>
+
+        </div>
+    </div>
+    <div id ="dashboard"></div>
+</body>
